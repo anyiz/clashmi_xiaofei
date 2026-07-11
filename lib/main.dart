@@ -24,10 +24,12 @@ import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/app/utils/system_scheme_utils.dart';
 import 'package:clashmi/app/utils/windows_version_helper.dart';
 import 'package:clashmi/i18n/strings.g.dart';
-import 'package:clashmi/screens/home_screen.dart';
+import 'package:clashmi/ui/layout/app_shell.dart';
 import 'package:clashmi/screens/launch_failed_screen.dart';
 import 'package:clashmi/screens/theme_data_dark.dart';
 import 'package:clashmi/screens/themes.dart';
+import 'package:clashmi/app/providers/node_provider.dart';
+import 'package:clashmi/app/providers/vpn_connection_provider.dart';
 import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/screens/widgets/routes.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
@@ -348,18 +350,16 @@ class MyAppState extends State<MyApp>
 
   @override
   Widget build(BuildContext context) {
-    String schemeArg = processArgs.firstWhere((element) {
-      final arg = element.trim();
-      return arg.startsWith(SystemSchemeUtils.getClashSchemeWith()) ||
-          arg.startsWith(SystemSchemeUtils.getClashMiSchemeWith());
-    }, orElse: () => '');
-
     List<NavigatorObserver> observers = [];
 
     observers.add(AppRouteObserver.instance);
 
     return MultiProvider(
-      providers: [ChangeNotifierProvider.value(value: Themes())],
+      providers: [
+        ChangeNotifierProvider.value(value: Themes()),
+        ChangeNotifierProvider(create: (_) => VpnConnectionProvider()),
+        ChangeNotifierProvider(create: (_) => NodeProvider()),
+      ],
       child: Consumer<Themes>(
         builder: (context, appTheme, _) {
           Provider.of<Themes>(
@@ -388,7 +388,7 @@ class MyAppState extends State<MyApp>
                         startFailedReason: startFailedReason!,
                         startFailedReasonDesc: startFailedReasonDesc,
                       )
-                    : HomeScreen(launchUrl: schemeArg.trim()),
+                    : const AppShell(),
               ),
               builder: SettingManager.getConfig().ui.disableFontScaler
                   ? (context, widget) {
