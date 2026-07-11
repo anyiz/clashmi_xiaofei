@@ -46,5 +46,5 @@ class ThemeDefine {
   static const Color kColorGreenBright = Color(0xFF30D158);
 
   // Legacy border radius
-  static const double kBorderRadius = 12;
+  static const BorderRadiusGeometry kBorderRadius = BorderRadius.all(Radius.circular(12));
 }

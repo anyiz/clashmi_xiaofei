@@ -29,10 +29,12 @@ class VpnConnectionProvider extends ChangeNotifier {
   void _onVpnStateChanged(FlutterVpnServiceState state, Map<String, String> params) {
     switch (state) {
       case FlutterVpnServiceState.connecting:
+      case FlutterVpnServiceState.reasserting:
         _status = VpnStatus.connecting;
       case FlutterVpnServiceState.connected:
         _status = VpnStatus.connected;
       case FlutterVpnServiceState.disconnected:
+      case FlutterVpnServiceState.invalid:
         _status = VpnStatus.disconnected;
       case FlutterVpnServiceState.disconnecting:
         _status = VpnStatus.connecting;

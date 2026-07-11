@@ -63,7 +63,7 @@ class NodeProvider extends ChangeNotifier {
   }
 
   Future<int?> testDelay(String nodeName) async {
-    final result = await ClashHttpApi.getDelay(nodeName, 'http://www.gstatic.com/generate_204');
+    final result = await ClashHttpApi.getDelay(nodeName, url: 'http://www.gstatic.com/generate_204');
     if (result.error == null) {
       return result.data;
     }

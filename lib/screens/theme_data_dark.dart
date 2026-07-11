@@ -2,7 +2,7 @@ import 'package:clashmi/screens/theme_define.dart';
 import 'package:flutter/material.dart';
 
 class ThemeDataDark {
-  static final ThemeData theme(BuildContext context) {
+  static ThemeData theme(BuildContext context) {
     final ColorScheme scheme = ColorScheme.dark(
       primary: ThemeDefine.kPrimary,
       secondary: ThemeDefine.kAccent,

@@ -126,7 +126,10 @@ class ProfileScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const LanguageSettingsScreen(),
+                        builder: (_) => const LanguageSettingsScreen(
+                          canPop: true,
+                          canGoBack: true,
+                        ),
                       ),
                     );
                   }),
